@@ -1,7 +1,6 @@
 import './App.css';
-import Board from './Componets/Board';
-import Header from './Componets/Header';
-import Register from './Componets/Register';
+import Header from './Componets/Header/Header';
+import Register from './Componets/Register/Register';
 
 function App() {
   return (
