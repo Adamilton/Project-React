@@ -20,7 +20,7 @@ body {
   flex-wrap: wrap;
 }
 
-header {
+/* header {
   margin-top: rem;
   display: flex;
   align-items: center;
@@ -30,16 +30,17 @@ header {
   height: 7.5rem;
   font-size: 1.6rem;
   width: 100vw;
-}
+} */
 
-.title-register {
+/* .title-register {
   width: 90vw;
   font-size: 1.2rem;
   font-weight: 700;
   color: #26038A;
   margin: 1.5rem;
   border-bottom: solid 2px #26038A;
-}
+} */
+
 form {
   display: flex;
   flex-direction: column;

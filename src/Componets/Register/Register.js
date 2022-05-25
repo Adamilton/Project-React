@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import Card from '../Card/Card';
+import Status from '../Status.js/Status';
 import Title from '../Title/Title';
 
 const Register = () => {
@@ -31,7 +32,8 @@ const Register = () => {
 
     const editTask = (index) => {
         setStatus(cards[index].status)
-        setDeadline(cards[index].deadline)
+        setDeadline(cards[index].deadline.replaceAll("-","T").replaceAll("/","-"))
+        console.log(cards[index])
         setDescription(cards[index].description)
         deleteTask(index);
     }
@@ -46,7 +48,7 @@ const Register = () => {
         if (!deadline) return console.log("Prencher o campo de prazo")
         if (!status) return console.log("Prencher o campo de status")
 
-        const data = { description, deadline: deadline.replace("T", "-"), status }
+        const data = { description, deadline: deadline.replaceAll("-","/").replaceAll("T","-"), status }
         
         AddTask(data);
         clearInput();
@@ -68,7 +70,8 @@ const Register = () => {
                             <input type="datetime-local" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
                         </fieldset>
                     </div>
-                    <div className="register-box">
+                    <Status setStatus={setStatus} status ={status}/>
+                    {/* <div className="register-box">
                         <fieldset className='input-register'>
                             <legend>Selecione o status</legend>
                             <select name="" id="" value={status} onChange={(e) => setStatus(e.target.value)}>
@@ -78,7 +81,7 @@ const Register = () => {
                                 <option value="Finalizado">Finalizado</option>
                             </select>
                         </fieldset>
-                    </div>
+                    </div> */}
 
                 </div>
 
@@ -88,6 +91,8 @@ const Register = () => {
                 </div>
 
             </form>
+
+
             <Title text={"Quadro de Tarefas"}/>
             <div className='box-color'>
 
@@ -95,7 +100,7 @@ const Register = () => {
                 <span className='red'>A Fazer</span>
                 {
                     cards.map((c,i)=>(
-                        (c.status==="A Fazer")? <Card  description={c.description} deadline={c.deadline} color={"red"} i = {i} deleteTask = {deleteTask} editTask={editTask} />:null
+                        (c.status==="A Fazer")? <Card key={i} description={c.description} deadline={c.deadline} color={"red"} i = {i} deleteTask = {deleteTask} editTask={editTask} />:null
                     ))
                 }
                 </div>
@@ -103,7 +108,7 @@ const Register = () => {
                 <span className='yellow'>Fazendo</span>
                 {
                      cards.map((c,i)=>(
-                        (c.status==="Fazendo")? <Card  description={c.description} deadline={c.deadline} color={"yellow"} i = {i} deleteTask = {deleteTask} editTask={editTask} />: null
+                        (c.status==="Fazendo")? <Card  key={i}  description={c.description} deadline={c.deadline} color={"yellow"} i = {i} deleteTask = {deleteTask} editTask={editTask} />: null
                     ))
                 }
                 </div>
@@ -111,7 +116,7 @@ const Register = () => {
                 <span className='green'>Finalizado</span>
                 {
                      cards.map((c,i)=>(
-                        (c.status==="Finalizado")? <Card  description={c.description} deadline={c.deadline} color={"green"} i = {i} deleteTask = {deleteTask} editTask={editTask} />: null
+                        (c.status==="Finalizado")? <Card  key={i}  description={c.description} deadline={c.deadline} color={"green"} i = {i} deleteTask = {deleteTask} editTask={editTask} />: null
                     ))
                 }
                 </div>
