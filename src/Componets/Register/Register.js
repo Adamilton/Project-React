@@ -8,7 +8,7 @@ const Register = () => {
     const [description, setDescription] = useState("");
     const [deadline, setDeadline] = useState("");
     const [status, setStatus] = useState("");
-    const [cards, setCards] = useState([{ description: "test 1", deadline: "25/05/2023", status: "Finalizado" }, { description: "test 2", deadline: "25/05/2023", status: "A Fazer" }, { description: "test ", deadline: "25/05/2023", status: "Fazendo" }]);
+    const [cards, setCards] = useState([{ description: "test 1", deadline: "12/06/2022-17:48", status: "Finalizado" }, { description: "test 2", deadline: "12/05/2022-17:48", status: "A Fazer" }, { description: "test ", deadline: "29/05/2022-17:08", status: "Fazendo" }]);
 
 
     const AddTask = (task) =>{
@@ -16,6 +16,23 @@ const Register = () => {
         alltasks.push(task);
         setCards(alltasks);
 
+    }
+
+    const strDate = (date)=>{
+        const years = date.substr(0,4);
+        const month = date.substr(5,2);
+        const day = date.substr(8,2);
+        const hours = date.substr(11,5);
+        return `${day}/${month}/${years}-${hours}`
+    }
+
+    const reverserDate = (date) =>{
+        const day = date.substr(0,2);
+        const month = date.substr(3,2);
+        const years = date.substr(6,4);
+        const hours = date.substr(11,5);
+        console.log(`${years}-${month}-${day}T${hours}`)
+        return `${years}-${month}-${day}T${hours}`
     }
 
     const clearInput = () =>{
@@ -31,8 +48,9 @@ const Register = () => {
     }
 
     const editTask = (index) => {
-        setStatus(cards[index].status)
-        setDeadline(cards[index].deadline.replaceAll("-","T").replaceAll("/","-"))
+        setStatus(cards[index].status);
+        setDeadline( reverserDate(cards[index].deadline));
+       
         console.log(cards[index])
         setDescription(cards[index].description)
         deleteTask(index);
@@ -48,8 +66,7 @@ const Register = () => {
         if (!deadline) return console.log("Prencher o campo de prazo")
         if (!status) return console.log("Prencher o campo de status")
 
-        const data = { description, deadline: deadline.replaceAll("-","/").replaceAll("T","-"), status }
-        
+        const data = { description, deadline: strDate(deadline), status }
         AddTask(data);
         clearInput();
     }
